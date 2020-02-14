@@ -1,0 +1,14 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "friendsofphp/php-cs-fixer": "^2.1",
+        "phpdocumentor/phpdocumentor": "^2.9",
+        "humbug/humbug": "~1.0@dev"
+    },
+    "require": {
+        "clue/socket-raw": "^1.3",
+        "erusev/parsedown": "^1.7",
+        "php-http/curl-client": "^1.7",
+        "guzzlehttp/psr7": "^1.4"
+    }
+}

@@ -1,0 +1,17 @@
+<?php
+
+return [
+  'env' => 'prod', // or prod, or stage
+  'siteName' => 'Wiki for Bitcoin',
+  'baseUrl' => 'https://wiki.for-bitcoin.com',
+  'sessionName' => 'PHPSESSID',
+  'dbUser' => 'lnwiki',
+  'dbPass' => 'lnwiki',
+  'dbName' => 'lnwiki',
+  'dbHost' => '127.0.0.1',
+  'dbPort' => '3306',
+  'cacheSharedObjects' => false,
+  'cachePrefix' => 'prod_',
+  'paymentServerBaseUrl' => "http://ln-gateway:3000",
+  'session.cookie_domain' => 'wiki.for-bitcoin.com',
+];
