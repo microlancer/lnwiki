@@ -2,6 +2,10 @@
 
 A very rudimentary wiki platform where you pay a small amount via the Bitcoin Lightning Network to make edits.
 
+# Try it out
+
+* https://wiki.for-bitcoin,com/
+
 # Requirements
 
 * PHP 7
