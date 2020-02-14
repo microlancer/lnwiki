@@ -5,6 +5,7 @@ return [
   'siteName' => 'Wiki for Bitcoin',
   'baseUrl' => 'https://wiki.for-bitcoin.com',
   'sessionName' => 'PHPSESSID',
+  'gearmanEnabled' => false,
   'dbUser' => 'lnwiki',
   'dbPass' => 'lnwiki',
   'dbName' => 'lnwiki',
