@@ -13,6 +13,8 @@ A very rudimentary wiki platform where you pay a small amount via the Bitcoin Li
 1. Run `composer update` to fetch the vendor dependencies.
 1. Modify `config.php` (see `config.php-example`) with your server settings.
 1. Modify `public/.htaccess` (see `public/.htaccess-example`) with your server settings.
+1. Run `mysql < sql/db_init.sql` to create the `lnwiki` database and user.
+1. Run `php tools/upgrade-db.php` to create the schema and initial data.
 
 # Usage
 
