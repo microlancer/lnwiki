@@ -5,7 +5,7 @@ A very rudimentary wiki platform where you pay a small amount via the Bitcoin Li
 Try it out
 ----------
 
-* https://wiki.for-bitcoin,com/
+* https://wiki.for-bitcoin.com/
 
 Requirements
 ------------
