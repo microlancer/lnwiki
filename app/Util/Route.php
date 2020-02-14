@@ -61,7 +61,7 @@ class Route implements SharedObject
         }
 
         if (!class_exists($fullyQualifiedControllerName)) {
-            return $this->dispatch(['q' => 'index/index']);
+            return $this->dispatch(['q' => 'page/index', 'name' => $routeParts[0], 'op' => $routeParts[1]]);
 //            $this->headers->setResponseCode(404);
 //            echo '404 Not Found';
 //            $this->logger->log('404 for controller: ' . $fullyQualifiedControllerName);

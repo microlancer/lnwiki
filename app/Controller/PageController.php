@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Model\ViewContext;
 
-class IndexController extends ViewController
+class PageController extends ViewController
 {
     public function __construct(ViewContext $viewContext)
     {
@@ -19,7 +19,7 @@ class IndexController extends ViewController
     
     public function indexAction(array $params)
     {
-      var_dump($params);
-        $this->view->render('index/index');
+      $this->view->addVars(['name' => $params['name'], 'op' => $params['op']]);
+      $this->view->render('index/index');
     }
 }
