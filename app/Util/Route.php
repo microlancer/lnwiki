@@ -71,8 +71,12 @@ class Route implements SharedObject
 //            return;
         //}
             
+            if (!class_exists($fullyQualifiedControllerName)) {
+                
+            
             $fullyQualifiedControllerName = 'App\Controller\IndexController';
             $actionName = 'indexAction';
+            }
 
         $controller = Di::getInstance()->get($fullyQualifiedControllerName);
 

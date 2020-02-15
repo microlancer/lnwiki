@@ -23,12 +23,57 @@ A page for <b><?=$vars['name']?></b> doesn't exist yet. You can <a href='<?=$var
 <p>You are editing page <tt style='font-weight:bold'><?=$vars['name']?></tt></p>
 
 <form method='post'>
-<textarea name='content' style="width:100%;height:80%"><?=htmlentities($vars['page']->content)?></textarea>
+<textarea name='content' style="padding:6px;width:100%;height:80%"><?=htmlentities($vars['page']->content)?></textarea>
 
 <!--LN invoice <input name='invoice' value='ln...'/>-->
 
-<button type="submit">Preview</button> <button type="submit">Save</button>
+<button type="submit">Submit changes</button>
 </form>
+
+<?php } else if ($vars['op'] == 'pay') { ?>
+
+<h1>Review & Pay</h1>
+
+<p>Your changes have not been published yet. If you leave this page, you can still come back to these edits in the History page. Pay the lightning invoice below to publish these changes, or click back to make more changes. Note that each edit will produce a different QR/invoice. Only pay the invoice if the preview looks correct. You can continue making additional edits on this page or any other page without paying for 1 hour (unless you close the browser).</p>
+
+
+<div style='background-color:lightgray;padding:10px;'>
+  
+    <?=$vars['draftPage']->getContentAsHtml()?>
+</div>
+
+<p>Please pay the following Bitcoin Lightning Network invoice for 1 satoshi to publish your changes.</p>
+
+<p><input type='text' style='font-family:monospace;width:50%' readonly='true' value='ln1023940293jffiajsfjalsdjfa09w0f9awef'/>
+
+<button>Copy to clipboard</button> <a href='lightning:ln1023940293jffiajsfjalsdjfa09w0f9awef'><button>Open in wallet</button></a></p>
+
+<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=lightning:lnbc10n1p0y0qj4pp5fv47p4m8uc2wmtm89k74svfjjpt8tzg6u2ytaatpnnu74tc523csdr6tdxkjcmjdakxzmnrv4ezu6t0t5s9qcted4jkuapqdanzqvfqwdshgmmndp5jqctnypsjqcn0daehggr5dus8qmmnwsszxdp5x5sxy7fqf45kxun0d3skucm9wgxqzuycqp2rzjqvs9kpzmqynvp5lmsf4r3wd7l396hagk392yjzx8qnvw2877ca0lkzy5hsqqf2qqqyqqqq05qqqqqzsqrcuxmvgp7swgw424crfuzrpndvtwnk9h85kfx3pwh0ay3amjgr27r4xpanhqlxm0qd3h6zed5dn80hje7p7hkfx674e68x77lea2jk9agpltnvuj'>
+
+
+
+<p>Once a payment is detected, you will redirected automatically.</p>
+
+<script>
+    function checkForPayment() {
+        var s = setTimeout(function() { 
+            console.log('Checking if invoice is paid...');
+            let url = '/api/checkPayment?pageId=<?=$vars['draftPage']->id?>';
+            
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+            xmlhttp.onload = function() {
+                let json = JSON.parse(xmlhttp.responseText);
+                
+                console.log(json);
+            }
+            checkForPayment();
+        }, 2000);
+    }
+    checkForPayment();
+</script>
+    
 
 <?php } else { ?>
 

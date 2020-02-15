@@ -41,17 +41,31 @@ class IndexController extends ViewController
         
         // Normalize the op
         
+        if (isset($params['content'])) {
+            $params['op'] = 'pay';
+        }
+        
         $op = isset($params['op']) ? $params['op'] : '';
         
-        if (!in_array($op, ['edit', 'history'])) {
+        if (!in_array($op, ['edit', 'history', 'pay'])) {
             $op = ''; // default is view
         }
         
         if ($params['name'] != $name) {
-            $url = $name . ($op ? '/' . $op : '');
+            $url = $name . '?op=' . $op;
             $this->headers->redirect($url);
             return;
         }
+        
+        $draftPage = $this->pageFactory->createPage();
+        
+        if (isset($params['content'])) {
+            // Save the page and fetch an invoice.
+            $draftPage->name = $name;
+            $draftPage->content = $params['content'];
+            
+            $this->pages->savePage($draftPage);
+        }   
         
         $page = $this->pageFactory->createPage();
         $page->name = $name;
@@ -67,6 +81,7 @@ class IndexController extends ViewController
         
         $this->view->addVars([
             'page' => $page,
+            'draftPage' => $draftPage,
             'name' => $name, 
             'op' => $op, 
             'content' => $content,
