@@ -91,19 +91,27 @@ trait WithParsedown
         foreach ($links as $i => $link) {
             /* @var \DOMNode $link */
             //Extract and show the "href" attribute.
-            $originalLinks[] = $link->getAttribute('href');
+            $originalLinks[] = $href = $link->getAttribute('href');
             $link->setAttribute('href', "__LINK-PLACEHOLDER-{$i}__");
-            $link->setAttribute('target', "_blank");
-            $link->setAttribute('rel', "noopener");
             
             $icon = $dom->createElement('i');
             $icon->setAttribute('class', 'fas fa-external-link-alt');
             
             $originalLinks[] = $link->nodeValue;
             
-            $link->nodeValue = "__LINKVALUE-PLACEHOLDER-{$i}__" . "&nbsp;";
+            $link->nodeValue = "__LINKVALUE-PLACEHOLDER-{$i}__";
             
-            $link->appendChild($icon);
+            if (strpos($href, 'http') === 0) {
+                $link->setAttribute('target', "_blank");
+            $link->setAttribute('rel', "noopener");
+            
+                //$link->nodeValue .= '&nbsp; ';
+                //$link->appendChild($icon);
+//                $sup = $dom->createElement('sup');
+//                $sup->nodeValue = '&nearr;';
+                $link->nodeValue .= '&nearr;';
+//                $link->appendChild($sup);
+            }
             
             $placeholders[] = "__LINK-PLACEHOLDER-{$i}__";
             $placeholders[] = "__LINKVALUE-PLACEHOLDER-{$i}__";

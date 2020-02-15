@@ -1,23 +1,43 @@
-<?php
-
-?><html>
+<html>
 <head>
-	<title>Wiki for Bitcoin</title>
+	<title><?=$vars['name'] != 'index' ? $vars['name'] . ' - ' : ''?>Wiki for Bitcoin</title>
 </head>
 <body>
+  
+<?php if ($vars['op'] == 'edit') { 
+    $editOrView = "<a href='{$vars['baseUrl']}/{$vars['name']}'>View this page</a>";
+} else {
+    $editOrView = "<a href='{$vars['baseUrl']}/{$vars['name']}?op=edit'>Edit this page</a>";
+}
+?>
+  <p><a href='<?=$vars['baseUrl']?>/'>Home</a><?=$vars['name'] != 'index' ? " &rsaquo; <a href='{$vars['baseUrl']}/{$vars['name']}'>{$vars['name']}</a>" : ''?> &middot; <?=$editOrView?> &middot; <a href='<?=$vars['baseUrl']?>/<?=$vars['name']?>?op=history'>History</a></p>
 
-<a href=''>Home</a> | <a href=''>Edit this page</a> | <a href=''>Discuss</a> | <a href=''>History</a>
+<?php if (!$vars['pageExists']) { ?>
 
-<h1>Wiki for Bitcoin</h1>
+<h1><?=ucwords($vars['name'])?></h1>
 
+A page for <b><?=$vars['name']?></b> doesn't exist yet. You can <a href='<?=$vars['baseUrl']?>/<?=$vars['name']?>?op=edit'>create</a> it.
 
-<?=$vars['name']?>
+<?php } else if ($vars['op'] == 'edit') { ?>
 
-<p>Hello! You can edit this wiki, for 1 satoshi. No login required.</p>
+<p>You are editing page <tt style='font-weight:bold'><?=$vars['name']?></tt></p>
 
+<form method='post'>
+<textarea name='content' style="width:100%;height:80%"><?=htmlentities($vars['page']->content)?></textarea>
+
+<!--LN invoice <input name='invoice' value='ln...'/>-->
+
+<button type="submit">Preview</button> <button type="submit">Save</button>
+</form>
+
+<?php } else { ?>
+
+<?=$vars['page']->getContentAsHtml()?>
+
+<?php } ?>
 
 <hr>
-Powered by <a href='https://github.com/thorie7912/lnwiki'>lnwiki</a> v0.1.0 | <a href='/index'>All pages</a>
+<p style='font-size:small'>Powered by <a target='_blank' href='https://github.com/thorie7912/lnwiki'><img src="https://github.com/favicon.ico" width="9"> lnwiki v0.1.0</a></p>
 
 </body>
 </html>

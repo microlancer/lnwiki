@@ -26,7 +26,7 @@ class Session implements SharedObject
     
     public function start()
     {
-        $this->logger->log('Starting session');
+        $this->logger->log('Starting session');        
         ini_set('session.gc_maxlifetime', 30 * self::SECONDS_PER_DAY);
         session_name($this->config->get('sessionName','PHPSESSID')); 
         

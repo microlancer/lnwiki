@@ -21,10 +21,10 @@ class Gearman implements SharedObject
         $port = $config->get('gearmanPort', 4730);
 
         $this->gearmanClient = new \GearmanClient();
-        $this->gearmanClient->addServer($host, $port);
+        //$this->gearmanClient->addServer($host, $port);
 
         $this->gearmanWorker = new \GearmanWorker();
-        $this->gearmanWorker->addServer($host, $port);
+        //$this->gearmanWorker->addServer($host, $port);
 
         $this->addFunctions([
             self::LOG => [Logger::class, 'logToFileJob'],

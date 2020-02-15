@@ -60,13 +60,19 @@ class Route implements SharedObject
             $fullyQualifiedControllerName = "App\Controller\\$controllerName";
         }
 
-        if (!class_exists($fullyQualifiedControllerName)) {
-            return $this->dispatch(['q' => 'page/index', 'name' => $routeParts[0], 'op' => $routeParts[1]]);
+        //if (!class_exists($fullyQualifiedControllerName)) {
+            if (!isset($routeParts[1])) {
+                $routeParts[1] = '';
+            }
+//            return $this->dispatch(['q' => 'index/index', 'name' => $routeParts[0], 'op' => $routeParts[1]]);
 //            $this->headers->setResponseCode(404);
 //            echo '404 Not Found';
 //            $this->logger->log('404 for controller: ' . $fullyQualifiedControllerName);
 //            return;
-        }
+        //}
+            
+            $fullyQualifiedControllerName = 'App\Controller\IndexController';
+            $actionName = 'indexAction';
 
         $controller = Di::getInstance()->get($fullyQualifiedControllerName);
 
@@ -79,11 +85,15 @@ class Route implements SharedObject
         if (!$continue) {
             return;
         }
+        
+        $unfilteredRequestParams['name'] = $routeParts[0];
+//        $unfilteredRequestParams['op'] = $routeParts[1];
 
         if (method_exists($controller, $actionName)) {
             $this->logger->log("Route::dispatch to $fullyQualifiedControllerName::$actionName");
             call_user_func([$controller, $actionName], $unfilteredRequestParams);
         } else {
+            die;
             return $this->dispatch(['q' => 'index/index']);
 //            $this->headers->setResponseCode(404);
 //            echo '404 Not Found';

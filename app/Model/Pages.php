@@ -51,13 +51,13 @@ class Pages
     public function loadActivePage(Page $page)
     {
 
-      $query = 'select p.id, p.content from pages p left join invoices i on p.id = i.pageId where p.name = ? and i.status = ? order by createdTs desc';
+      $query = 'select p.id, p.content from pages p left join invoices i on p.id = i.pageId where p.name = ? and i.status = ? order by p.createdTs desc';
 
-      $rows = $this->mysql->query($query, 's', [$page->name, Invoice::STATUS_PAID]);
+      $rows = $this->mysql->query($query, 'si', [$page->name, Invoice::STATUS_PAID]);
 
       if (!empty($rows)) {
-        $page->id = $rows[0]['p.id'];
-        $page->content = $rows[0]['p.content'];
+        $page->id = $rows[0]['id'];
+        $page->content = $rows[0]['content'];
       }
 
     }
